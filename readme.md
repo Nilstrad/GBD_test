@@ -63,7 +63,7 @@
 
 9. 6 уровень. Добавлен калькулятор.
 10. 7 уровень. Добавлен Calculator Server.
-    Принимает данные:
+    Отправленный запрос выглядит так:
 
         curl -X POST http://localhost:8080 -d "{\"exp\": \"2+2\"}" -H "Content-Type: application/json"
 
