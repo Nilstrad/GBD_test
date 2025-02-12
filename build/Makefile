@@ -117,41 +117,41 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named hello
+# Target rules for targets named http_echo_server
 
 # Build rule for target.
-hello: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 hello
-.PHONY : hello
+http_echo_server: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 http_echo_server
+.PHONY : http_echo_server
 
 # fast build rule for target.
-hello/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/hello.dir/build.make CMakeFiles/hello.dir/build
-.PHONY : hello/fast
+http_echo_server/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/http_echo_server.dir/build.make CMakeFiles/http_echo_server.dir/build
+.PHONY : http_echo_server/fast
 
-main.o: main.cpp.o
-.PHONY : main.o
+http_echo_server.o: http_echo_server.cpp.o
+.PHONY : http_echo_server.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/hello.dir/build.make CMakeFiles/hello.dir/main.cpp.o
-.PHONY : main.cpp.o
+http_echo_server.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/http_echo_server.dir/build.make CMakeFiles/http_echo_server.dir/http_echo_server.cpp.o
+.PHONY : http_echo_server.cpp.o
 
-main.i: main.cpp.i
-.PHONY : main.i
+http_echo_server.i: http_echo_server.cpp.i
+.PHONY : http_echo_server.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/hello.dir/build.make CMakeFiles/hello.dir/main.cpp.i
-.PHONY : main.cpp.i
+http_echo_server.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/http_echo_server.dir/build.make CMakeFiles/http_echo_server.dir/http_echo_server.cpp.i
+.PHONY : http_echo_server.cpp.i
 
-main.s: main.cpp.s
-.PHONY : main.s
+http_echo_server.s: http_echo_server.cpp.s
+.PHONY : http_echo_server.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/hello.dir/build.make CMakeFiles/hello.dir/main.cpp.s
-.PHONY : main.cpp.s
+http_echo_server.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/http_echo_server.dir/build.make CMakeFiles/http_echo_server.dir/http_echo_server.cpp.s
+.PHONY : http_echo_server.cpp.s
 
 # Help Target
 help:
@@ -161,10 +161,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... hello"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... http_echo_server"
+	@echo "... http_echo_server.o"
+	@echo "... http_echo_server.i"
+	@echo "... http_echo_server.s"
 .PHONY : help
 
 
