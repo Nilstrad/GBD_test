@@ -117,41 +117,41 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named calculator
+# Target rules for targets named calculator_server
 
 # Build rule for target.
-calculator: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 calculator
-.PHONY : calculator
+calculator_server: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 calculator_server
+.PHONY : calculator_server
 
 # fast build rule for target.
-calculator/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/build
-.PHONY : calculator/fast
+calculator_server/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator_server.dir/build.make CMakeFiles/calculator_server.dir/build
+.PHONY : calculator_server/fast
 
-calculator.o: calculator.cpp.o
-.PHONY : calculator.o
+calculator_server.o: calculator_server.cpp.o
+.PHONY : calculator_server.o
 
 # target to build an object file
-calculator.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/calculator.cpp.o
-.PHONY : calculator.cpp.o
+calculator_server.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator_server.dir/build.make CMakeFiles/calculator_server.dir/calculator_server.cpp.o
+.PHONY : calculator_server.cpp.o
 
-calculator.i: calculator.cpp.i
-.PHONY : calculator.i
+calculator_server.i: calculator_server.cpp.i
+.PHONY : calculator_server.i
 
 # target to preprocess a source file
-calculator.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/calculator.cpp.i
-.PHONY : calculator.cpp.i
+calculator_server.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator_server.dir/build.make CMakeFiles/calculator_server.dir/calculator_server.cpp.i
+.PHONY : calculator_server.cpp.i
 
-calculator.s: calculator.cpp.s
-.PHONY : calculator.s
+calculator_server.s: calculator_server.cpp.s
+.PHONY : calculator_server.s
 
 # target to generate assembly for a file
-calculator.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/calculator.cpp.s
-.PHONY : calculator.cpp.s
+calculator_server.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator_server.dir/build.make CMakeFiles/calculator_server.dir/calculator_server.cpp.s
+.PHONY : calculator_server.cpp.s
 
 # Help Target
 help:
@@ -161,10 +161,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... calculator"
-	@echo "... calculator.o"
-	@echo "... calculator.i"
-	@echo "... calculator.s"
+	@echo "... calculator_server"
+	@echo "... calculator_server.o"
+	@echo "... calculator_server.i"
+	@echo "... calculator_server.s"
 .PHONY : help
 
 
