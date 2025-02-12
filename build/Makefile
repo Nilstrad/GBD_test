@@ -117,41 +117,41 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named http_echo_server
+# Target rules for targets named calculator
 
 # Build rule for target.
-http_echo_server: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 http_echo_server
-.PHONY : http_echo_server
+calculator: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 calculator
+.PHONY : calculator
 
 # fast build rule for target.
-http_echo_server/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/http_echo_server.dir/build.make CMakeFiles/http_echo_server.dir/build
-.PHONY : http_echo_server/fast
+calculator/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/build
+.PHONY : calculator/fast
 
-http_echo_server.o: http_echo_server.cpp.o
-.PHONY : http_echo_server.o
+calculator.o: calculator.cpp.o
+.PHONY : calculator.o
 
 # target to build an object file
-http_echo_server.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/http_echo_server.dir/build.make CMakeFiles/http_echo_server.dir/http_echo_server.cpp.o
-.PHONY : http_echo_server.cpp.o
+calculator.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/calculator.cpp.o
+.PHONY : calculator.cpp.o
 
-http_echo_server.i: http_echo_server.cpp.i
-.PHONY : http_echo_server.i
+calculator.i: calculator.cpp.i
+.PHONY : calculator.i
 
 # target to preprocess a source file
-http_echo_server.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/http_echo_server.dir/build.make CMakeFiles/http_echo_server.dir/http_echo_server.cpp.i
-.PHONY : http_echo_server.cpp.i
+calculator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/calculator.cpp.i
+.PHONY : calculator.cpp.i
 
-http_echo_server.s: http_echo_server.cpp.s
-.PHONY : http_echo_server.s
+calculator.s: calculator.cpp.s
+.PHONY : calculator.s
 
 # target to generate assembly for a file
-http_echo_server.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/http_echo_server.dir/build.make CMakeFiles/http_echo_server.dir/http_echo_server.cpp.s
-.PHONY : http_echo_server.cpp.s
+calculator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/calculator.cpp.s
+.PHONY : calculator.cpp.s
 
 # Help Target
 help:
@@ -161,10 +161,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... http_echo_server"
-	@echo "... http_echo_server.o"
-	@echo "... http_echo_server.i"
-	@echo "... http_echo_server.s"
+	@echo "... calculator"
+	@echo "... calculator.o"
+	@echo "... calculator.i"
+	@echo "... calculator.s"
 .PHONY : help
 
 
