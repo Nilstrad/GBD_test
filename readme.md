@@ -49,4 +49,3 @@
     docker run -it -v C:\path\to\your\project:/workspace --name cpp_container cpp-dev
 
 7. Потом заходим в vs code с расширением Dev Containers. И подключаемся к нашему активному контейнеру. И если хотим запустить наш проект, что возвращаемся на шаг 1.
-
