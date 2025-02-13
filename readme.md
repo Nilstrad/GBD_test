@@ -81,3 +81,15 @@
         4
         root@d81badc4279b:/app/build# ./client -c echo
         "echo"
+    
+
+12. 9 уровень. Добавлена поддержка переменных и многострочного
+ ввода.
+
+
+        root@d81badc4279b:/app/build# ./client -c echo
+        "echo"
+
+        root@d81badc4279b:/app/build# ./client -e var = 2 + 5 \
+        > var*3
+        21
