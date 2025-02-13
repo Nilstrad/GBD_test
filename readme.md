@@ -29,6 +29,7 @@
 5. Создать Docker образ.(Dockerfile):
 
 Например:
+
     FROM ubuntu:latest
 
     RUN apt-get update && apt-get install -y \
@@ -39,7 +40,7 @@
     curl \
     unzip \
     && rm -rf /var/lib/apt/lists/*
-
+    
     WORKDIR /app
 6. Запускаем DockerDesktop, в консоли создаем образ, затем запускаем контейнер.
 
