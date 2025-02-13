@@ -81,3 +81,29 @@
         4
         root@d81badc4279b:/app/build# ./client -c echo
         "echo"
+    
+
+12. 9 уровень. Добавлена поддержка переменных и многострочного
+ ввода.
+
+
+        root@d81badc4279b:/app/build# ./client -c echo
+        "echo"
+
+        root@d81badc4279b:/app/build# ./client -e var = 2 + 5 \
+        > var*3
+        21
+
+13. 10 уровень. Добавлена поддержка хранения промежуточных результатов.
+    
+        root@d81badc4279b:/app/build# ./client -e pi=3.14
+        3.14
+        root@d81badc4279b:/app/build# ./client -e 2*pi *3
+        18.84
+        root@d81badc4279b:/app/build# ./client -e var = 2*pi*3 \
+        > var/3  
+        6.28
+        root@d81badc4279b:/app/build# ./client -c clean
+        "State cleared"
+        root@d81badc4279b:/app/build# ./client -e 2*pi
+        Ошибка: "Unknown variable 'pi'"
