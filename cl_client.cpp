@@ -77,6 +77,8 @@ int main(int argc, char* argv[]) {
                     std::cout << res_obj["res"].as_int64() << std::endl;  // Для целых чисел
                 } else if (res_obj["res"].is_double()) {
                     std::cout << res_obj["res"].as_double() << std::endl;  // Для чисел с плавающей точкой
+                } else if (res_obj["res"].is_string()) {
+                    std::cout << res_obj["res"].as_string() << std::endl;  // Для строк
                 } else {
                     std::cerr << "Неизвестный тип данных в поле 'res'." << std::endl;
                 }
