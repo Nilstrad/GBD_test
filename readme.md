@@ -49,3 +49,28 @@
     docker run -it -v C:\path\to\your\project:/workspace --name cpp_container cpp-dev
 
 7. Потом заходим в vs code с расширением Dev Containers. И подключаемся к нашему активному контейнеру. И если хотим запустить наш проект, что возвращаемся на шаг 1.
+8. 5 уровень.
+
+Ответ получен:
+
+    Echo: GET / HTTP/1.1
+
+    Host: localhost:8080
+
+    User-Agent: curl/8.9.1
+
+    Accept: */*
+
+9. 6 уровень. Добавлен калькулятор.
+10. 7 уровень. Добавлен Calculator Server.
+    Отправленный запрос выглядит так:
+
+        curl -X POST http://localhost:8080 -d "{\"exp\": \"2+2\"}" -H "Content-Type: application/json"
+
+        curl -X POST http://localhost:8080 -d "{\"cmd\": \"echo\"}" -H "Content-Type: application/json"
+
+    Ответ выглядит так:
+
+        {"res":"4"}
+
+        {"res":"echo"}
