@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <boost/asio.hpp>
 #include <boost/json.hpp>
 
@@ -6,6 +7,7 @@ using namespace boost::asio;
 using ip::tcp;
 namespace json = boost::json;
 
+// Функция для отправки HTTP-запроса и получения ответа
 std::string send_request(const std::string& request_body) {
     try {
         io_service io_service;
@@ -20,19 +22,21 @@ std::string send_request(const std::string& request_body) {
                               "Host: 127.0.0.1:8080\r\n"
                               "Content-Type: application/json\r\n"
                               "Content-Length: " + std::to_string(request_body.size()) + "\r\n"
-                              "Connection: close\r\n\r\n" + request_body;
+                              "Connection: close\r\n\r\n" +
+                              request_body;
 
         // Отправка запроса
         write(socket, buffer(request));
 
-        // Чтение ответа
+        // Чтение ответа (заголовки)
         boost::asio::streambuf response;
-        read_until(socket, response, "\r\n\r\n");  // Читаем заголовки
+        read_until(socket, response, "\r\n\r\n");
 
         std::istream response_stream(&response);
         std::string header;
-        while (std::getline(response_stream, header) && header != "\r") {}
+        while (std::getline(response_stream, header) && header != "\r") { }
 
+        // Чтение тела ответа
         std::string response_body;
         std::getline(response_stream, response_body, '\0');
 
@@ -54,8 +58,10 @@ int main(int argc, char* argv[]) {
         request_obj["cmd"] = argv[2];
     } else if (std::string(argv[1]) == "-e" && argc > 2) {
         std::string expression;
+        // Объединяем аргументы в одно выражение (поддержка многострочного ввода)
         for (int i = 2; i < argc; ++i) {
-            if (i > 2) expression += " ";
+            if (i > 2)
+                expression += " ";
             expression += argv[i];
         }
         request_obj["exp"] = expression;
@@ -72,16 +78,14 @@ int main(int argc, char* argv[]) {
         if (parsed_response.is_object()) {
             json::object res_obj = parsed_response.as_object();
             if (res_obj.contains("res")) {
-                // Проверяем тип данных в поле "res" и выводим результат
-                if (res_obj["res"].is_int64()) {
-                    std::cout << res_obj["res"].as_int64() << std::endl;  // Для целых чисел
-                } else if (res_obj["res"].is_double()) {
-                    std::cout << res_obj["res"].as_double() << std::endl;  // Для чисел с плавающей точкой
-                } else if (res_obj["res"].is_string()) {
-                    std::cout << res_obj["res"].as_string() << std::endl;  // Для строк
-                } else {
-                    std::cerr << "Неизвестный тип данных в поле 'res'." << std::endl;
-                }
+                if (res_obj["res"].is_int64())
+                    std::cout << res_obj["res"].as_int64() << std::endl;
+                else if (res_obj["res"].is_double())
+                    std::cout << res_obj["res"].as_double() << std::endl;
+                else if (res_obj["res"].is_string())
+                    std::cout << res_obj["res"].as_string() << std::endl;
+                else
+                    std::cerr << "Неизвестный тип результата" << std::endl;
             } else if (res_obj.contains("error")) {
                 std::cerr << "Ошибка: " << res_obj["error"].as_string() << std::endl;
             }
