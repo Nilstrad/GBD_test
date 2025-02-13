@@ -76,7 +76,10 @@ void handle_request(tcp::socket& socket) {
             std::cerr << "JSON parse error: " << e.what() << std::endl;
             json::object response_object;
             response_object["error"] = "Invalid JSON format";
-            std::string response = json::serialize(response_object);
+            std::string response = "HTTP/1.1 200 OK\r\n"
+                                   "Content-Type: application/json\r\n"
+                                   "Connection: close\r\n\r\n" +
+                                   json::serialize(response_object);
             boost::asio::write(socket, boost::asio::buffer(response), error);
             return;
         }
@@ -93,13 +96,12 @@ void handle_request(tcp::socket& socket) {
                 try {
                     double result = evaluate_expression(expression);
 
-                    std::ostringstream result_stream;
+                    // Если результат целое число, сохраняем как int, иначе как double
                     if (std::floor(result) == result) {
-                        result_stream << std::fixed << std::setprecision(0) << result;
+                        response_object["res"] = static_cast<int>(result); // Преобразуем в int, если результат целое число
                     } else {
-                        result_stream << result;
+                        response_object["res"] = result; // Если вещественное число, оставляем как есть
                     }
-                    response_object["res"] = result_stream.str();
                 } catch (const std::exception& e) {
                     response_object["error"] = e.what();
                 }
@@ -110,10 +112,21 @@ void handle_request(tcp::socket& socket) {
             response_object["error"] = "Invalid JSON format";
         }
 
+        // Сериализация объекта JSON с пробелами между ключом и значением
+        std::ostringstream response_stream;
+        response_stream << "{ ";
+        bool first = true;
+        for (const auto& kv : response_object) {
+            if (!first) response_stream << ", ";
+            response_stream << "\"" << kv.key() << "\": " << kv.value();
+            first = false;
+        }
+        response_stream << " }";
+
         std::string response = "HTTP/1.1 200 OK\r\n"
                                "Content-Type: application/json\r\n"
                                "Connection: close\r\n\r\n" +
-                               json::serialize(response_object);
+                               response_stream.str();
 
         std::cout << "Sending response: " << response << std::endl;
         boost::asio::write(socket, boost::asio::buffer(response), error);

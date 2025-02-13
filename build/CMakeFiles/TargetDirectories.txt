@@ -1,3 +1,4 @@
 /app/build/CMakeFiles/calculator_server.dir
+/app/build/CMakeFiles/client.dir
 /app/build/CMakeFiles/edit_cache.dir
 /app/build/CMakeFiles/rebuild_cache.dir
