@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <boost/asio.hpp>
 #include <boost/json.hpp>
 
@@ -6,6 +7,7 @@ using namespace boost::asio;
 using ip::tcp;
 namespace json = boost::json;
 
+// Отправка HTTP-запроса и получение ответа
 std::string send_request(const std::string& request_body) {
     try {
         io_service io_service;
@@ -15,23 +17,21 @@ std::string send_request(const std::string& request_body) {
         tcp::socket socket(io_service);
         connect(socket, endpoint_iterator);
 
-        // Формирование HTTP-запроса
         std::string request = "POST / HTTP/1.1\r\n"
                               "Host: 127.0.0.1:8080\r\n"
                               "Content-Type: application/json\r\n"
                               "Content-Length: " + std::to_string(request_body.size()) + "\r\n"
-                              "Connection: close\r\n\r\n" + request_body;
+                              "Connection: close\r\n\r\n" +
+                              request_body;
 
-        // Отправка запроса
         write(socket, buffer(request));
 
-        // Чтение ответа
         boost::asio::streambuf response;
-        read_until(socket, response, "\r\n\r\n");  // Читаем заголовки
+        read_until(socket, response, "\r\n\r\n");
 
         std::istream response_stream(&response);
         std::string header;
-        while (std::getline(response_stream, header) && header != "\r") {}
+        while (std::getline(response_stream, header) && header != "\r") { }
 
         std::string response_body;
         std::getline(response_stream, response_body, '\0');
@@ -44,25 +44,35 @@ std::string send_request(const std::string& request_body) {
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
-        std::cerr << "Использование: " << argv[0] << " -c <команда> | -e <выражение>" << std::endl;
+        std::cerr << "Использование: " << argv[0] << " [-u <user>] -c <команда> | -e <выражение>" << std::endl;
         return 1;
     }
 
     json::object request_obj;
+    std::string user;
 
-    if (std::string(argv[1]) == "-c" && argc == 3) {
-        request_obj["cmd"] = argv[2];
-    } else if (std::string(argv[1]) == "-e" && argc > 2) {
-        std::string expression;
-        for (int i = 2; i < argc; ++i) {
-            if (i > 2) expression += " ";
-            expression += argv[i];
+    // Обработка аргументов командной строки. Флаг -u указывает пользователя.
+    for (int i = 1; i < argc; ++i) {
+        std::string arg = argv[i];
+        if (arg == "-u" && i + 1 < argc) {
+            user = argv[++i];
+        } else if (arg == "-c" && i + 1 < argc) {
+            request_obj["cmd"] = argv[++i];
+        } else if (arg == "-e" && i + 1 < argc) {
+            std::string expression;
+            for (int j = i + 1; j < argc; ++j) {
+                if (j > i + 1)
+                    expression += " ";
+                expression += argv[j];
+            }
+            request_obj["exp"] = expression;
+            break;
         }
-        request_obj["exp"] = expression;
-    } else {
-        std::cerr << "Неверные аргументы!" << std::endl;
-        return 1;
     }
+
+    // Если указан пользователь, добавляем его в JSON-запрос
+    if (!user.empty())
+        request_obj["user"] = user;
 
     std::string request_body = json::serialize(request_obj);
     std::string response = send_request(request_body);
@@ -72,16 +82,14 @@ int main(int argc, char* argv[]) {
         if (parsed_response.is_object()) {
             json::object res_obj = parsed_response.as_object();
             if (res_obj.contains("res")) {
-                // Проверяем тип данных в поле "res" и выводим результат
-                if (res_obj["res"].is_int64()) {
-                    std::cout << res_obj["res"].as_int64() << std::endl;  // Для целых чисел
-                } else if (res_obj["res"].is_double()) {
-                    std::cout << res_obj["res"].as_double() << std::endl;  // Для чисел с плавающей точкой
-                } else if (res_obj["res"].is_string()) {
-                    std::cout << res_obj["res"].as_string() << std::endl;  // Для строк
-                } else {
-                    std::cerr << "Неизвестный тип данных в поле 'res'." << std::endl;
-                }
+                if (res_obj["res"].is_int64())
+                    std::cout << res_obj["res"].as_int64() << std::endl;
+                else if (res_obj["res"].is_double())
+                    std::cout << res_obj["res"].as_double() << std::endl;
+                else if (res_obj["res"].is_string())
+                    std::cout << res_obj["res"].as_string() << std::endl;
+                else
+                    std::cerr << "Неизвестный тип результата" << std::endl;
             } else if (res_obj.contains("error")) {
                 std::cerr << "Ошибка: " << res_obj["error"].as_string() << std::endl;
             }

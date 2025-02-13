@@ -81,3 +81,48 @@
         4
         root@d81badc4279b:/app/build# ./client -c echo
         "echo"
+    
+
+12. 9 уровень. Добавлена поддержка переменных и многострочного
+ ввода.
+
+
+        root@d81badc4279b:/app/build# ./client -c echo
+        "echo"
+
+        root@d81badc4279b:/app/build# ./client -e var = 2 + 5 \
+        > var*3
+        21
+
+13. 10 уровень. Добавлена поддержка хранения промежуточных результатов.
+    
+        root@d81badc4279b:/app/build# ./client -e pi=3.14
+        3.14
+        root@d81badc4279b:/app/build# ./client -e 2*pi *3
+        18.84
+        root@d81badc4279b:/app/build# ./client -e var = 2*pi*3 \
+        > var/3  
+        6.28
+        root@d81badc4279b:/app/build# ./client -c clean
+        "State cleared"
+        root@d81badc4279b:/app/build# ./client -e 2*pi
+        Ошибка: "Unknown variable 'pi'"
+
+14. 11 уровень. Расширена API для поддержки сессий. Сессия создается и хранится
+для каждого пользователя. Пользователь может быть указан при
+работе с API калькулятора.
+API для сброса состояния сбрасывает состояние только
+текущей сессии
+
+        root@d81badc4279b:/app/build# ./client -u student -e pi=3.14
+        3.14
+        root@d81badc4279b:/app/build# ./client -e 2*pi*3
+        Ошибка: "Unknown variable 'pi'"
+        root@d81badc4279b:/app/build# ./client -u student -e 2*pi*3
+        18.84
+        root@d81badc4279b:/app/build# ./client -u stud -e 2*pi*3
+        Ошибка: "Unknown variable 'pi'"
+        root@d81badc4279b:/app/build# ./client -u student -c clean
+        "State cleared"
+        root@d81badc4279b:/app/build# ./client -u student -e 2*pi*3
+        Ошибка: "Unknown variable 'pi'"
