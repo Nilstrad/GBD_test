@@ -129,6 +129,19 @@ calculator_server/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator_server.dir/build.make CMakeFiles/calculator_server.dir/build
 .PHONY : calculator_server/fast
 
+#=============================================================================
+# Target rules for targets named client
+
+# Build rule for target.
+client: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 client
+.PHONY : client
+
+# fast build rule for target.
+client/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/build
+.PHONY : client/fast
+
 calculator_server.o: calculator_server.cpp.o
 .PHONY : calculator_server.o
 
@@ -153,6 +166,30 @@ calculator_server.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator_server.dir/build.make CMakeFiles/calculator_server.dir/calculator_server.cpp.s
 .PHONY : calculator_server.cpp.s
 
+cl_client.o: cl_client.cpp.o
+.PHONY : cl_client.o
+
+# target to build an object file
+cl_client.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/cl_client.cpp.o
+.PHONY : cl_client.cpp.o
+
+cl_client.i: cl_client.cpp.i
+.PHONY : cl_client.i
+
+# target to preprocess a source file
+cl_client.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/cl_client.cpp.i
+.PHONY : cl_client.cpp.i
+
+cl_client.s: cl_client.cpp.s
+.PHONY : cl_client.s
+
+# target to generate assembly for a file
+cl_client.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/cl_client.cpp.s
+.PHONY : cl_client.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,9 +199,13 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... calculator_server"
+	@echo "... client"
 	@echo "... calculator_server.o"
 	@echo "... calculator_server.i"
 	@echo "... calculator_server.s"
+	@echo "... cl_client.o"
+	@echo "... cl_client.i"
+	@echo "... cl_client.s"
 .PHONY : help
 
 
