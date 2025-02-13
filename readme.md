@@ -29,6 +29,7 @@
 5. Создать Docker образ.(Dockerfile):
 
 Например:
+
     FROM ubuntu:latest
 
     RUN apt-get update && apt-get install -y \
